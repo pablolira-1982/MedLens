@@ -39,14 +39,17 @@ For the system to function, you must place the fine-tuned Gemma 4 LiteRT model i
 - **Model Link**: [Insert your Kaggle Model Link Here]
 
 ### 3. Automatic Setup
-We provide a single script to install all system dependencies (including FFmpeg for audio), setup the Python environment, and start the services:
+We provide a single script to install all system dependencies (including FFmpeg for audio), setup the Python environment, and start the services.
 
+First, clone the repository and navigate into the directory:
 ```bash
+git clone https://github.com/pablolira-1982/MedLens.git
+cd MedLens
 chmod +x start.sh
 ./start.sh
 ```
 
-### 3. Manual Startup
+### 4. Manual Startup
 If you prefer manual control:
 ```bash
 # In /server
