@@ -26,14 +26,19 @@ MedLens is a premium clinical diagnostic assistant built for the **Gemma 4 Good 
 
 ---
 
-## 🚀 Quick Start (Local Installation)
+### 🚀 Quick Start (Local Installation)
 
 ### 1. Prerequisites
 - **Node.js** (v18+)
 - **Python** (v3.9+)
 - **Ollama** (Running with `gemma4:e2b` or `medgemma-4b-it`)
 
-### 2. Automatic Setup
+### 2. Model Installation (CRITICAL FOR JUDGES)
+For the system to function, you must place the fine-tuned Gemma 4 LiteRT model in the following directory:
+- **Path**: `ai/models/gemma-4-e2b.litertlm`
+- **Model Link**: [Insert your Kaggle Model Link Here]
+
+### 3. Automatic Setup
 We provide a single script to install all system dependencies (including FFmpeg for audio), setup the Python environment, and start the services:
 
 ```bash
