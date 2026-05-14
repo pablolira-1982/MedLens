@@ -34,9 +34,10 @@ MedLens is a premium clinical diagnostic assistant built for the **Gemma 4 Good 
 - **Ollama** (Running with `gemma4:e2b` or `medgemma-4b-it`)
 
 ### 2. Model Installation (CRITICAL FOR JUDGES)
-For the system to function, you must place the fine-tuned Gemma 4 LiteRT model in the following directory:
-- **Path**: `ai/models/gemma-4-e2b.litertlm`
-- **Model Link**: [Insert your Kaggle Model Link Here]
+For the system to function, you must download the fine-tuned Gemma 4 LiteRT model and place it in the following directory:
+- **Model Repo**: [Hugging Face - MedLens Gemma LiteRT](https://huggingface.co/pablolira/medlens-gemma-litert)
+- **File to download**: `gemma-4-e2b.litertlm`
+- **Destination Path**: `ai/models/gemma-4-e2b.litertlm`
 
 ### 3. Automatic Setup
 We provide a single script to install all system dependencies (including FFmpeg for audio), setup the Python environment, and start the services.
