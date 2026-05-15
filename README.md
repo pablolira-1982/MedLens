@@ -31,18 +31,36 @@ MedLens is a premium clinical diagnostic assistant built for the **Gemma 4 Good 
 ### 1. Prerequisites
 - **Node.js** (v18+)
 - **Python** (v3.9+)
-- **Ollama** (Running with `gemma4:e2b` or `medgemma-4b-it`)
+- **Ollama** (required for fallback model)
 
-### 2. Model Installation (CRITICAL FOR JUDGES)
-For the system to function, you must download the fine-tuned Gemma 4 LiteRT model and place it in the following directory:
+### 2. Linux Ollama Setup
+Install and start Ollama before running `./start.sh`.
+
+```bash
+# Install Ollama (Linux)
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Start Ollama in a dedicated terminal/session
+ollama serve
+
+# Pull the fallback model used by MedLens
+ollama pull amsaravi/medgemma-4b-it:q8
+```
+
+Notes:
+- Keep `ollama serve` running while testing MedLens.
+- If using PM2/systemd for Ollama, ensure port `11434` is active.
+
+### 3. Model Installation
+For the system to function, download the fine-tuned Gemma 4 LiteRT model and place it in the directory below:
 - **Model Repo**: [Hugging Face - MedLens Gemma LiteRT](https://huggingface.co/pablolira/medlens-gemma-litert)
 - **File to download**: `gemma-4-e2b.litertlm`
-- **Destination Path**: `ai/models/gemma-4-e2b.litertlm`
+- **Destination path**: `server/ai/models/gemma-4-e2b.litertlm`
 
-### 3. Automatic Setup
-We provide a single script to install all system dependencies (including FFmpeg for audio), setup the Python environment, and start the services.
+### 4. Automatic Setup
+We provide a single script to install system dependencies (including FFmpeg for audio), set up the Python environment, and start services.
 
-First, clone the repository and navigate into the directory:
+First, clone the repository and enter the project directory:
 ```bash
 git clone https://github.com/pablolira-1982/MedLens.git
 cd MedLens
@@ -50,7 +68,7 @@ chmod +x start.sh
 ./start.sh
 ```
 
-### 4. Manual Startup
+### 5. Manual Startup
 If you prefer manual control:
 ```bash
 # In /server
