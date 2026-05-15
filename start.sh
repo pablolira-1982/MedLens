@@ -27,16 +27,27 @@ mkdir -p "$PROJECT_DIR/ai/models"
 
 echo "[1/7] Installing system dependencies..."
 
-sudo apt update
+APT_CMD="apt"
+if [ "$(id -u)" -ne 0 ]; then
+    if command -v sudo >/dev/null 2>&1 && sudo -n true >/dev/null 2>&1; then
+        APT_CMD="sudo apt"
+    else
+        echo "WARN: sem permissao para usar sudo; pulando instalacao de dependencias do sistema."
+        echo "Instale manualmente: python3-pip python3-venv libgl1-mesa-glx curl build-essential ffmpeg"
+        APT_CMD=""
+    fi
+fi
 
-sudo apt install -y \
-    python3-pip \
-    python3-venv \
-    libgl1-mesa-glx \
-    curl \
-    build-essential \
-    # FFmpeg is required for audio processing and local transcription (Whisper engine)
-    ffmpeg
+if [ -n "$APT_CMD" ]; then
+    $APT_CMD update
+    $APT_CMD install -y \
+        python3-pip \
+        python3-venv \
+        libgl1-mesa-glx \
+        curl \
+        build-essential \
+        ffmpeg
+fi
 
 # ==================================================
 # 3. Install Server Dependencies
@@ -84,8 +95,11 @@ deactivate
 
 echo "[4/7] Validating Gemma4 LiteRT model..."
 
-MODEL_PATH="$PROJECT_DIR/ai/models/gemma-4-e2b.litertlm"
-RUNNER_PATH="$PROJECT_DIR/src/ai/litert_runner.py"
+MODEL_PATH="$PROJECT_DIR/server/ai/models/gemma-4-e2b.litertlm"
+if [ ! -f "$MODEL_PATH" ] && [ -f "$PROJECT_DIR/ai/models/gemma-4-e2b.litertlm" ]; then
+    MODEL_PATH="$PROJECT_DIR/ai/models/gemma-4-e2b.litertlm"
+fi
+RUNNER_PATH="$PROJECT_DIR/server/src/ai/litert_runner.py"
 
 if [ ! -f "$MODEL_PATH" ]; then
     echo ""
@@ -208,6 +222,6 @@ echo "Logs:"
 echo "pm2 logs medlens-server"
 echo ""
 echo "LiteRT Test:"
-echo "./mediapipe_env/bin/python3 ./src/ai/litert_runner.py ./ai/models/gemma-4-e2b.litertlm \"Olá\""
+echo "cd server && ./mediapipe_env/bin/python3 ./src/ai/litert_runner.py ./ai/models/gemma-4-e2b.litertlm \"Olá\""
 echo ""
 echo "--------------------------------------------------"
